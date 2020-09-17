@@ -11,7 +11,7 @@ services:
       name: zero
       type: web
       envVarKey: host
-  dockerCommand: dgraph zero --my={ZERO_HOST}:${ZERO_PORT}
+  dockerCommand: dgraph zero --my=${ZERO_HOST}:${ZERO_PORT}
 
 - type: web
   name: alpha
