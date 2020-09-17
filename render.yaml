@@ -5,13 +5,7 @@ services:
   disk:
     name: datadir
     mountPath: /dgraph
-  envVars:
-  - key: ZERO_HOST
-    fromService:
-      name: zero
-      type: web
-      envVarKey: host
-  dockerCommand: dgraph zero --my=${ZERO_HOST}:${ZERO_PORT}
+  dockerCommand: dgraph zero
 
 - type: web
   name: alpha
@@ -20,27 +14,14 @@ services:
     name: datadir
     mountPath: /dgraph
   envVars:
-    - key: ZERO_HOST
+    - key: ZERO
       fromService:
         name: zero
         type: web
-        envVarKey: host
-    - key: ALPHA_HOST
-      fromService:
-        name: alpha
-        type: web
-        envVarKey: host
-  dockerCommand: dgraph alpha --my=${ALPHA_HOST}:${ALPHA_PORT} --lru_mb=2048 --zero=${ZERO_HOST}:${ZERO_PORT}
+        envVarKey: hostport
+  dockerCommand: dgraph alpha --lru_mb=2048 --zero=${ZERO}
 
 - type: web
   name: ratel
   env: docker 
   dockerCommand: dgraph-ratel
-
-envVarGroups:
-  - name: dgraph
-    envVars:
-    - key: ALPHA_PORT
-      value: 7080
-    - key: ZERO_PORT
-      value: 5080
