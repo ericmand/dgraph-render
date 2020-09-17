@@ -1,0 +1,24 @@
+services:
+- type: pserv
+  name: zero
+  env: docker
+  disk:
+    name: datadir
+    mountPath: /dgraph
+  port: 5080 #grpc, 6080 is http
+  startCommand: dgraph zero --my=zero:5080
+
+- type: pserv
+  name: alpha
+  env: docker
+  disk:
+    name: datadir
+    mountPath: /dgraph
+  port: 8080 #grpc, 9080 is http
+  startCommand: dgraph alpha --my=alpha:7080 --lru_mb=2048 --zero=zero:5080
+
+- type: web
+  name: ratel
+  env: docker 
+  port: 8000
+  startCommand: dgraph-ratel
