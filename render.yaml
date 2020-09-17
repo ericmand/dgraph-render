@@ -1,5 +1,5 @@
 services:
-- type: pserv
+- type: web
   name: zero
   env: docker
   disk:
@@ -7,7 +7,7 @@ services:
     mountPath: /dgraph
   dockerCommand: dgraph zero --my=zero:${ZERO_PORT}
 
-- type: pserv
+- type: web
   name: alpha
   env: docker
   disk:
@@ -32,7 +32,7 @@ services:
   dockerCommand: dgraph-ratel
 
 envVarGroups:
-  - name: ports
+  - name: dgraph
     envVars:
     - key: ALPHA_PORT
       value: 7080
