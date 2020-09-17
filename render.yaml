@@ -5,7 +5,7 @@ services:
   disk:
     name: datadir
     mountPath: /dgraph
-  port: 5080 #grpc, 6080 is http
+  port: 5080
   startCommand: dgraph zero --my=zero:5080
 
 - type: pserv
@@ -14,7 +14,7 @@ services:
   disk:
     name: datadir
     mountPath: /dgraph
-  port: 8080 #grpc, 9080 is http
+  port: 8080
   startCommand: dgraph alpha --my=alpha:7080 --lru_mb=2048 --zero=zero:5080
 
 - type: web
